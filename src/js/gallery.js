@@ -5,6 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";// Додатковий імпорт стилів
 //import photoCardTpl from "../templates/photo-card.hbs";
+
 const refs={
     gallery:        document.querySelector(".gallery"),
     form:           document.querySelector("#search-form"),
@@ -12,15 +13,16 @@ const refs={
     page:           1,
     allPhotos:      0,
 };
-//=============================================================================
+
 var instance=new SimpleLightbox('.gallery a',{captionsData: "alt", captionDelay:250});
+
 //==============================Events=========================================
 refs.form.addEventListener("submit",(event)=>{
     event.preventDefault();
     refs.page=1;
     getPhotos(refs.form.searchQuery.value).then((result)=>{
         refs.gallery.innerHTML="";
-        console.log(`status: ${result.status}`);
+
         if(!result.status)
         {
             Notify.failure("Sorry, there are no images matching your search query. Please try again");
@@ -32,19 +34,17 @@ refs.form.addEventListener("submit",(event)=>{
         {
             Notify.success(`Hooray! We found ${result.allHitsQuantyty} images.`);
             refs.gallery.innerHTML=renderPhotos(result.data);
-            console.log(result.data);
+            //console.log(result.data);
             refs.allPhotos=result.allHitsQuantyty;
             instance.refresh();
         }
-        //console.log(result.allHitsQuantyty);
-        //console.log(result.pageHitsQuantyty);
     });
 });
-//------------------------------------------------------------------------
+//-----------------------------------------------------------------------
 document.addEventListener("scroll",throttle(()=>{
     checkPosition();
 },refs.SCROLL_DELEY));
-//=======================================================================
+//============================The-End-Events=============================
 
 //=======================================================================
 function checkPosition() {

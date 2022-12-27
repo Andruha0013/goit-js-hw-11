@@ -55,7 +55,7 @@ async function getPhotos(searchStr,page){
         // виконується завжди
         
     }); 
-    console.log(result);
+    //console.log(result);
     return result;
 }
 
