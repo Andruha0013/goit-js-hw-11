@@ -1,4 +1,5 @@
-const axios = require('axios').default;
+import axios from "axios";
+//const axios = require('axios').default;
 const options={
     API_URL:        "https://pixabay.com/api/",
     API_KEY:        "32355865-c929d0081293f1f48a699b3aa",
